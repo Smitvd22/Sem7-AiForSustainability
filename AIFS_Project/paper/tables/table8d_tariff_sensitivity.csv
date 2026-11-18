@@ -1,0 +1,9 @@
+tariff,controller,mean_cost
+flat,cheapest_hours,6.0764225994320915
+time_of_use,cheapest_hours,4.916133626085716
+flat,forecast_driven,6.076422599432092
+time_of_use,forecast_driven,4.916133626085716
+flat,reliability_aware,6.076422599432092
+time_of_use,reliability_aware,4.916133626085716
+flat,conservative_fallback,6.076422599432092
+time_of_use,conservative_fallback,4.916133626085716

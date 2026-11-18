@@ -1,0 +1,22 @@
+[
+  {
+    "configuration": "Forecast-driven (no confidence awareness, B3)",
+    "mean_cost": 4.9161,
+    "deadline_success_rate": 1.0
+  },
+  {
+    "configuration": "Proposed Reliability-aware switching (tau*= 0.828)",
+    "mean_cost": 4.9161,
+    "deadline_success_rate": 1.0
+  },
+  {
+    "configuration": "Conservative Fallback always active (B5)",
+    "mean_cost": 4.9161,
+    "deadline_success_rate": 1.0
+  },
+  {
+    "configuration": "Fixed schedule (B1)",
+    "mean_cost": 6.186,
+    "deadline_success_rate": 1.0
+  }
+]

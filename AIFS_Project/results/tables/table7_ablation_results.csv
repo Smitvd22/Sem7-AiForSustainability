@@ -1,0 +1,5 @@
+configuration,mean_cost,deadline_success_rate
+"Forecast-driven (no confidence awareness, B3)",4.9161,1.0
+Proposed Reliability-aware switching (tau*= 0.828),4.9161,1.0
+Conservative Fallback always active (B5),4.9161,1.0
+Fixed schedule (B1),6.186,1.0

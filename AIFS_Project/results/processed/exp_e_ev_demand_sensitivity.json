@@ -1,0 +1,122 @@
+[
+  {
+    "required_energy_kwh": 10.0,
+    "controller": "cheapest_hours",
+    "mean_cost": 4.027244737196827,
+    "deadline_success_rate": 1.0
+  },
+  {
+    "required_energy_kwh": 10.0,
+    "controller": "forecast_driven",
+    "mean_cost": 4.027244737196827,
+    "deadline_success_rate": 1.0
+  },
+  {
+    "required_energy_kwh": 10.0,
+    "controller": "reliability_aware",
+    "mean_cost": 4.027244737196827,
+    "deadline_success_rate": 1.0
+  },
+  {
+    "required_energy_kwh": 10.0,
+    "controller": "conservative_fallback",
+    "mean_cost": 4.027244737196827,
+    "deadline_success_rate": 1.0
+  },
+  {
+    "required_energy_kwh": 15.0,
+    "controller": "cheapest_hours",
+    "mean_cost": 4.471689181641271,
+    "deadline_success_rate": 1.0
+  },
+  {
+    "required_energy_kwh": 15.0,
+    "controller": "forecast_driven",
+    "mean_cost": 4.471689181641271,
+    "deadline_success_rate": 1.0
+  },
+  {
+    "required_energy_kwh": 15.0,
+    "controller": "reliability_aware",
+    "mean_cost": 4.471689181641271,
+    "deadline_success_rate": 1.0
+  },
+  {
+    "required_energy_kwh": 15.0,
+    "controller": "conservative_fallback",
+    "mean_cost": 4.471689181641271,
+    "deadline_success_rate": 1.0
+  },
+  {
+    "required_energy_kwh": 20.0,
+    "controller": "cheapest_hours",
+    "mean_cost": 4.916133626085716,
+    "deadline_success_rate": 1.0
+  },
+  {
+    "required_energy_kwh": 20.0,
+    "controller": "forecast_driven",
+    "mean_cost": 4.916133626085716,
+    "deadline_success_rate": 1.0
+  },
+  {
+    "required_energy_kwh": 20.0,
+    "controller": "reliability_aware",
+    "mean_cost": 4.916133626085716,
+    "deadline_success_rate": 1.0
+  },
+  {
+    "required_energy_kwh": 20.0,
+    "controller": "conservative_fallback",
+    "mean_cost": 4.916133626085716,
+    "deadline_success_rate": 1.0
+  },
+  {
+    "required_energy_kwh": 25.0,
+    "controller": "cheapest_hours",
+    "mean_cost": 5.360578070530161,
+    "deadline_success_rate": 1.0
+  },
+  {
+    "required_energy_kwh": 25.0,
+    "controller": "forecast_driven",
+    "mean_cost": 5.360578070530161,
+    "deadline_success_rate": 1.0
+  },
+  {
+    "required_energy_kwh": 25.0,
+    "controller": "reliability_aware",
+    "mean_cost": 5.360578070530161,
+    "deadline_success_rate": 1.0
+  },
+  {
+    "required_energy_kwh": 25.0,
+    "controller": "conservative_fallback",
+    "mean_cost": 5.360578070530161,
+    "deadline_success_rate": 1.0
+  },
+  {
+    "required_energy_kwh": 30.0,
+    "controller": "cheapest_hours",
+    "mean_cost": 5.805022514974605,
+    "deadline_success_rate": 1.0
+  },
+  {
+    "required_energy_kwh": 30.0,
+    "controller": "forecast_driven",
+    "mean_cost": 5.805022514974605,
+    "deadline_success_rate": 1.0
+  },
+  {
+    "required_energy_kwh": 30.0,
+    "controller": "reliability_aware",
+    "mean_cost": 5.805022514974605,
+    "deadline_success_rate": 1.0
+  },
+  {
+    "required_energy_kwh": 30.0,
+    "controller": "conservative_fallback",
+    "mean_cost": 5.805022514974605,
+    "deadline_success_rate": 1.0
+  }
+]

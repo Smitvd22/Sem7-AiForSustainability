@@ -1,0 +1,42 @@
+[
+  {
+    "tariff": "flat",
+    "controller": "cheapest_hours",
+    "mean_cost": 6.0764225994320915
+  },
+  {
+    "tariff": "time_of_use",
+    "controller": "cheapest_hours",
+    "mean_cost": 4.916133626085716
+  },
+  {
+    "tariff": "flat",
+    "controller": "forecast_driven",
+    "mean_cost": 6.076422599432092
+  },
+  {
+    "tariff": "time_of_use",
+    "controller": "forecast_driven",
+    "mean_cost": 4.916133626085716
+  },
+  {
+    "tariff": "flat",
+    "controller": "reliability_aware",
+    "mean_cost": 6.076422599432092
+  },
+  {
+    "tariff": "time_of_use",
+    "controller": "reliability_aware",
+    "mean_cost": 4.916133626085716
+  },
+  {
+    "tariff": "flat",
+    "controller": "conservative_fallback",
+    "mean_cost": 6.076422599432092
+  },
+  {
+    "tariff": "time_of_use",
+    "controller": "conservative_fallback",
+    "mean_cost": 4.916133626085716
+  }
+]

@@ -1,0 +1,155 @@
+{
+    "project_name": "Reliability-Aware EV Charging",
+    "version": "2.0.0",
+
+    "data": {
+        "source": "real_world",
+        "description": "Cross-dataset empirical residential energy profile combining measured solar PV (NREL PVDAQ Site 4), residential load (UK-DALE/REFIT), and California PG&E EV2-A TOU tariff",
+        "pv_capacity_kw": 5.0,
+        "latitude": 39.74,
+        "longitude": -105.18,
+        "timezone": "UTC",
+        "time_resolution_hours": 1.0,
+        "simulation_days": 365,
+        "year": 2023,
+        "start_date": "2023-01-01",
+        "raw_dir": "data/raw",
+        "processed_dir": "data/processed",
+        "real_world_sources": {
+            "pv": {
+                "name": "NREL PVDAQ Site 4 (Visitor Center)",
+                "url": "https://data.openei.org/datasets/5502",
+                "raw_file": "data/raw/nrel_pvdaq_site4_hourly.csv"
+            },
+            "load": {
+                "name": "UK-DALE / REFIT Residential Smart Meter",
+                "url": "https://jack-kelly.com/data/",
+                "raw_file": "data/raw/uk_dale_residential_load.csv"
+            },
+            "tariff": {
+                "name": "California PG&E Schedule EV2-A",
+                "url": "https://www.pge.com/tariffs/",
+                "raw_file": "data/raw/pge_ev2a_tariff.csv"
+            },
+            "ev_sessions": {
+                "name": "Caltech ACN-Data Session Distribution",
+                "url": "https://ev.caltech.edu/dataset",
+                "raw_file": "data/raw/acn_caltech_ev_sessions.csv"
+            }
+        }
+    },
+
+    "splits": {
+        "train_frac": 0.60,
+        "calibration_frac": 0.15,
+        "validation_frac": 0.10,
+        "test_frac": 0.15,
+        "split_file": "data/processed/splits.json"
+    },
+
+    "ev": {
+        "battery_capacity_kwh": 40.0,
+        "initial_soc_kwh": 10.0,
+        "required_energy_kwh": 20.0,
+        "max_charger_power_kw": 7.0,
+        "charging_efficiency": 0.90,
+        "arrival_hour": 17,
+        "departure_hour": 7,
+        "description": "Typical residential Level 2 EVSE, evening arrival, morning departure"
+    },
+
+    "bidirectional": {
+        "enable_e2h": false,
+        "enable_e2g": false,
+        "max_discharge_power_kw": 7.0,
+        "discharge_efficiency": 0.90,
+        "min_soc_reserve_kwh": 8.0,
+        "degradation_cost_per_kwh": 0.015,
+        "scenarios": {
+            "S1": {"name": "Unidirectional (Baseline)", "enable_e2h": false, "enable_e2g": false},
+            "S2": {"name": "E2H-Only (Vehicle-to-Home Peak Shaving)", "enable_e2h": true, "enable_e2g": false},
+            "S3": {"name": "E2G-Only (Vehicle-to-Grid Export Arbitrage)", "enable_e2h": false, "enable_e2g": true},
+            "S4": {"name": "Combined Bidirectional (E2H + E2G)", "enable_e2h": true, "enable_e2g": true}
+        }
+    },
+
+    "tariff": {
+        "type": "time_of_use",
+        "flat_rate": 0.15,
+        "tou_rates": {
+            "off_peak": {"rate": 0.08, "hours": [0,1,2,3,4,5,22,23]},
+            "mid_peak": {"rate": 0.12, "hours": [6,7,8,9,10,11,12,13,14,15,16,21]},
+            "on_peak":  {"rate": 0.25, "hours": [17,18,19,20]}
+        },
+        "currency": "USD",
+        "export_rate": 0.04,
+        "description": "Residential EV Time-of-Use tariff structure with net export compensation"
+    },
+
+    "forecasting": {
+        "persistence_lag_days": 1,
+        "ml_model": "histogram_gradient_boosting",
+        "ml_features": ["hour", "day_of_year", "pv_lag_1d", "pv_lag_2d", "pv_lag_7d", "pv_rolling_3d_mean", "pv_rolling_7d_mean", "is_weekend"],
+        "ml_params": {
+            "max_iter": 200,
+            "max_depth": 5,
+            "learning_rate": 0.1,
+            "random_state": 42
+        }
+    },
+
+    "uncertainty": {
+        "method": "split_conformal",
+        "nominal_coverage": 0.90,
+        "reliability_normalization": "capacity_based",
+        "reliability_scale_factor": null,
+        "description": "Split conformal prediction with symmetric absolute residual intervals"
+    },
+
+    "threshold_selection": {
+        "candidate_quantiles": [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9],
+        "primary_objective": "cost",
+        "deadline_tolerance": 0.0,
+        "selection_rule": "lowest_cost_with_acceptable_deadline"
+    },
+
+    "synthetic_errors": {
+        "scenarios": {
+            "low_error": {"noise_std_fraction": 0.05, "temporal_correlation": 0.0},
+            "moderate_error": {"noise_std_fraction": 0.15, "temporal_correlation": 0.0},
+            "high_error": {"noise_std_fraction": 0.30, "temporal_correlation": 0.0},
+            "correlated_error": {"noise_std_fraction": 0.15, "temporal_correlation": 0.7},
+            "regime_shift": {"noise_std_fraction": 0.15, "temporal_correlation": 0.0, "regime_bias_kw": 1.5, "regime_prob": 0.2}
+        },
+        "random_seeds": [42, 123, 456, 789, 1024]
+    },
+
+    "experiments": {
+        "sensitivity_ev_energy_kwh": [10.0, 15.0, 20.0, 25.0, 30.0],
+        "sensitivity_window_hours": [8, 10, 12, 14],
+        "tariff_scenarios": ["time_of_use", "flat"],
+        "random_seeds": [42, 123, 456, 789, 1024]
+    },
+
+    "statistical": {
+        "confidence_level": 0.95,
+        "paired_test": "t_test",
+        "bootstrap_samples": 1000,
+        "multiple_comparison_method": "bonferroni"
+    },
+
+    "output": {
+        "results_dir": "results",
+        "paper_dir": "paper",
+        "presentation_dir": "presentation",
+        "figures_dpi": 300,
+        "figure_format": "png"
+    },
+
+    "reproducibility": {
+        "random_seed": 42,
+        "numpy_seed": 42,
+        "python_version": "3.12",
+        "os": "Windows"
+    }
+}

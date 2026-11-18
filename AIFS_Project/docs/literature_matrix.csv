@@ -1,0 +1,11 @@
+Paper,EV Charging,Solar Forecasts,Uncertainty Quantification,Reliability-Based Decisions,Discrete Switching Policy,Fallback Mechanism,Key Differentiation from Proposal
+Zhao & Burke (2014),Yes,Yes,No,No,No,No,Uses deterministic PV forecasts; does not quantify error or switch modes
+Simolin et al. (2020),Yes,No,Yes,Partial,Yes,Yes,Focuses on EV trip/driver uncertainty using battery SOC fallback; no solar PV
+Dong et al. (2025),Yes,Yes,Yes,No,No,No,Two-stage stochastic programming under continuous uncertainty; no discrete if-then fallback
+Amara-Ouali et al. (2023),Yes,No,Yes,No,No,No,Forecasting study only (quantile regression for EV load); no scheduling decisions
+Yu et al. (2024),Yes,No,Yes,No,No,No,Receding-horizon robust optimization without solar-gated fallback
+Cabrera-Tobar et al. (2024),Yes,No,Yes,No,No,No,Explicit robust MPC for public stations focusing on grid carbon intensity
+Wang et al. (2025),Yes,Yes,Yes,No,No,No,Distributionally robust optimization (DRO) for commercial distribution network fleets
+Son et al. (2026),Yes,Yes,Yes,No,No,No,Station-level robust scheduling with weather clustering; lacks lightweight threshold switching
+Proposed Controller,Yes,Yes,Yes,Yes,Yes,Yes,Calibrated conformal confidence score gating switching between forecast-driven LP and conservative fallback
+

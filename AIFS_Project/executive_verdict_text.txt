@@ -1,0 +1,393 @@
+﻿Executive verdict
+The literature suggests that elements of the proposal have been explored , but not the exact controller
+design . Prior work has used solar/PV forecasts and EVΓÇÉcharging optimization (often in stations or
+microgrids) and has begun to address forecast errors, but no paper appears to implement a home EV
+charging controller that explicitly gates its decisions on forecast reliability . For example, Zhao and
+Burke (2014) introduced solar PV forecasting into EV station energy managementπÇÉ81ΓÇáL52-L60πÇæ, and
+Simolin et al. (2020) studied EV charging control under uncertainty in trip predictionsπÇÉ98ΓÇáL139-L146πÇæ.
+Dong et al. (2025) proposed a stochastic scheduling framework for an EV charging station with PV
+uncertaintyπÇÉ59ΓÇáL29-L37πÇæ. These and related works focus on incorporating uncertainty  into optimization
+(often via robust or stochastic methods), but they do not implement a simple confidence-threshold
+ΓÇ£fallbackΓÇ¥ strategy that the controller switches to when forecasts are deemed unreliable. In short, the
+general idea of using forecasts for EV charging is well-studied, but a ΓÇ£confidence-awareΓÇ¥ controller that
+conditionally switches strategies based on forecast error  appears to be a novel twist . The proposal seems 
+incrementally novel : it combines known components (PV forecasting, EV scheduling, fallback rules) in a
+way not explicitly covered by existing studies. Thus, it may be defensible as a small new contribution, but it
+is close to the current state of the art (see TableΓÇ»C below for evidence). 
+Closest existing research
+Zhao & Burke (2014, IEEE IEVC)  ΓÇô ΓÇ£An Intelligent Solar Powered Battery Buffered EV Charging
+StationΓÇªΓÇ¥ πÇÉ81ΓÇáL52-L60πÇæ. This conference paper designed an EV charging station with PV and a
+battery buffer . It uses PV forecasts  (cloud-cover data) and EV load pattern forecasts to optimize
+station charging (e.g. when to draw from solar vs. grid). There is no discussion of forecast errors or
+switching strategies based on confidence . EV charging is included (station-level), PV forecasting is
+used explicitly, but uncertainty is not modeled; no ΓÇ£fallbackΓÇ¥ mechanism is employed.
+Simolin et al. (2020, IREE)  ΓÇô ΓÇ£Assessment of Prediction Uncertainties in EV Charging
+Management.ΓÇ¥ πÇÉ98ΓÇáL139-L146πÇæ. This study considers uncertainty in EV charging predictions
+(departure time/energy needs) and proposes alternative control methods. In particular , they show
+that using the EV batteryΓÇÖs state-of-charge as a feedback (ΓÇ£battery SOCΓÇôbased methodΓÇ¥) can yield
+almost as good charging performance as a perfectΓÇôinformation scheduleπÇÉ98ΓÇáL139-L146πÇæ. This
+effectively acts as a fallback  when trip predictions are poor . EV charging is the focus, but solar PV is
+not involved . They explicitly model prediction error and switch from a prediction-based schedule to
+a conservative SOC-based rule when uncertainty is high. This is closely analogous to the proposed
+fallback concept, but applied to EV trip uncertainty rather than PV forecast.
+Dong et al. (2025, Energy) ΓÇô ΓÇ£Stochastic optimization of integrated EV charging stations under
+photovoltaic uncertainty and battery constraints.ΓÇ¥ πÇÉ59ΓÇáL29-L37πÇæ. This paper addresses EV charging
+station scheduling  with on-site PV and battery storage. The authors explicitly model PV forecast
+uncertainty  via a ΓÇ£hybrid characterizationΓÇ¥ and incorporate it in a two-stage stochastic optimization.
+Their results show modest cost/carbon benefits of accounting for uncertainty (e.g. a 0.41% profitΓÇó 
+ΓÇó 
+ΓÇó 
+1
+gain)πÇÉ59ΓÇáL29-L37πÇæ. EV charging and PV forecasts are both included. However , they use a complex
+optimization framework rather than a simple confidence-threshold controller , and no explicit fallback
+rule is given ΓÇô the controller always runs the stochastic optimizer . This is technically related but not
+the same as a threshold-based fallback strategy.
+Amara-Ouali et al. (2023, World Electr. Veh. J.)  ΓÇô ΓÇ£Quantifying the Uncertainty of Electric Vehicle
+Charging with Probabilistic Load Forecasting.ΓÇ¥ πÇÉ74ΓÇáL43-L51πÇæ. This work focuses on EV charging load
+forecasting , generating probabilistic (quantile) forecasts of day-ahead EV demand. They compare a
+direct quantile model vs. a bottom-up method using Monte Carlo to aggregate individual sessions.
+This is forecasting work (EV load, not scheduling) , so EV charging is included (as load), but it does 
+not involve any control decisions or solar PV . It shows that probabilistic forecast methods can
+quantify uncertainty in EV charging demandπÇÉ74ΓÇáL43-L51πÇæ, but it does not use that uncertainty to
+adjust charging schedules.
+(Additional related work) : Other studies have combined EV charging with renewables or
+uncertainty in different ways. For example, Manzolini et al. (2024) studied how PV and EV forecasting
+accuracy affect microgrid operation costsπÇÉ31ΓÇáL106-L115πÇæ, Shang et al. (2026) considered V2G and
+PV in peak shaving with Monte Carlo uncertainty analysisπÇÉ84ΓÇáL105-L113πÇæ, and Chandra Mouli et al.
+(2019) optimized workplace EV charging with PV and V2G (though typically assuming perfect
+forecasts). These are conceptually relevant but do not include an explicit reliability-based switch rule.
+None of the surveyed papers implement exactly the proposed scheme . 
+Prior-work comparison matrix
+Paper EV chargingSolar
+forecastsUncertainty
+estimationReliability-
+based
+decisionsFallback
+mechanismMain
+difference
+from my
+proposal
+Zhao &
+Burke
+2014
+(IEVC)
+πÇÉ81ΓÇáL52-
+L60πÇæYes (station-
+level
+charging,
+battery)Yes (PV
+forecast
+via
+weather)No (uses
+deterministic
+forecasts)No (always
+uses
+forecast)No (no
+alternate
+mode)Uses PV
+forecasts for
+optimization,
+but ignores
+forecast
+error .
+Simolin et
+al. 2020
+(IREE)
+πÇÉ98ΓÇáL139-
+L146πÇæYes
+(residential
+EV charging
+control)NoYes (EV trip
+prediction
+uncertainty)Partial
+(uses SOC
+when
+predictions
+are poor)Yes
+(battery-
+SOC
+fallback)Focus on EV
+trip
+forecasts; no
+PV/price, but
+introduces
+fallback
+based on
+SOC.ΓÇó 
+ΓÇó 
+2
+Paper EV chargingSolar
+forecastsUncertainty
+estimationReliability-
+based
+decisionsFallback
+mechanismMain
+difference
+from my
+proposal
+Dong et al.
+2025
+(Energy )
+πÇÉ59ΓÇáL29-
+L37πÇæYes
+(charging
+station
+scheduling)Yes (PV
+forecast
+with
+uncertainty
+model)Yes (explicit
+PV forecast
+uncertainty)No
+(optimizes
+globally, no
+if-then rule)No (no
+simple
+fallback
+mode)Uses
+stochastic
+optimization
+for PV
+uncertainty,
+not a simple
+confidence
+check.
+Amara-
+Ouali et al.
+2023
+(WEVJ)
+πÇÉ74ΓÇáL43-
+L51πÇæYes
+(aggregated
+EV charging
+load
+forecast)NoYes
+(probabilistic
+EV load
+forecasting)No
+(forecasting
+only, no
+decision
+rule)No (no
+scheduling)Only
+forecasting
+EV load;
+does not
+schedule or
+use price/PV
+data.
+Yes/No/Partial : ΓÇ£PartialΓÇ¥ indicates the feature is somewhat present but not fully (e.g. Simolin uses a fallback
+only under very uncertain forecasts). 
+Novelty analysis
+Has confidence-aware charging been done?  Not explicitly. Existing works use forecasts or robust
+optimization, but none switch strategies based on a forecast confidence threshold . Simolin et al.
+did use a fallback (battery SOC) when EV travel predictions were unreliableπÇÉ98ΓÇáL139-L146πÇæ, which
+is analogous, but applied to a different prediction (driver schedule, not PV output). Our proposed
+idea extends this concept to PV forecast reliability. No paper was found that explicitly monitors solar
+forecast error and changes charging strategy accordingly.
+Have charging decisions been adjusted by PV forecast reliability?  We found no example where a
+controller calculates forecast confidence (e.g. prediction interval width) and alters charging. Some
+works (e.g. Shang 2026) analyze charging with PV under weather variabilityπÇÉ84ΓÇáL105-L113πÇæ, but
+they do not operate  in real-time on reliability. They simply test different scenarios. In contrast, our
+proposal would actively  slow or shift charging when forecasts are deemed unreliable. This specific
+behavior appears to be unaddressed in the literature.
+Have fallback schedules been used when forecasts are unreliable?  SimolinΓÇÖs battery-based
+method is essentially a fallback when predictions failπÇÉ98ΓÇáL139-L146πÇæ, and robust optimization
+frameworks (Dong et al.) implicitly guard against error , but we saw no simple fallback rule in home
+EV charging with PV . Most optimization methods continuously incorporate uncertainty rather than
+suddenly switching strategy.1. 
+2. 
+3. 
+3
+Has the exact combination been evaluated?  The combination of (residential) smart-home EV
+charging with PV forecasts and an explicit reliability-aware fallback  has not been explicitly
+studied. The closest is Zhao 2014, which simply uses PV forecasts without accounting for errors
+πÇÉ81ΓÇáL52-L60πÇæ, and Dong 2025, which does sophisticated stochastic planning but with a single fixed
+optimization (no ΓÇ£if unreliable, do X else do YΓÇ¥)πÇÉ59ΓÇáL29-L37πÇæ. Thus the proposed controllerΓÇÖs
+architecture seems new.
+Are the chosen metrics already standard?  Yes. Metrics like electricity cost, peak demand, solar
+utilization, deadlines, and penalty costs from forecast errors are commonly used in EV scheduling
+and demand response studies. For example, Zhao reported peak/grid impactsπÇÉ81ΓÇáL52-L60πÇæ and
+Dong reported cost/carbon changesπÇÉ59ΓÇáL29-L37πÇæ. None of these papers had a ΓÇ£confidence-awareΓÇ¥
+variant to compare against, so our specific evaluation (especially quantifying extra cost from forecast
+error) would be a new angle.
+Unresolved issues:  The literature shows that forecast errors do impact scheduling outcomes  and that
+robust or stochastic methods can mitigate this (e.g. Dong 2025πÇÉ59ΓÇáL29-L37πÇæ). What remains
+unclear is how much a simple threshold-based strategy helps compared to these more complex methods .
+Also, existing work largely targets public or workplace charging stations; residential smart-home
+charging with price signals  is less explored. The interaction of forecast confidence  with user deadlines
+and price  is not addressed anywhere as a distinct mechanism. These gaps suggest there is room to
+test whether a confidence-aware policy can improve on naive scheduling.
+Novelty assessment:  On balance, the proposal is incrementally novel . It blends established
+components (PV forecasting, EV scheduling, fallback control) but in a new combination. We cannot
+claim a completely new problem , since EV-PV integration has been studied, but the specific
+algorithmic twist ΓÇô gating on forecast reliability ΓÇô appears to be novel . The closest precedent is
+SimolinΓÇÖs fallback on EV need forecastsπÇÉ98ΓÇáL139-L146πÇæ, but our context (PV forecast errors, home
+charging) is different. Thus the research might yield a publishable result, but it is best seen as an
+incremental advance  over robust scheduling approaches.
+Recommended final title
+ΓÇ£Reliability-Aware Scheduling of Home EV Charging Using Solar PV Forecast ConfidenceΓÇ¥
+Precise research question
+Primary question:  Can an EVΓÇÉcharging controller that monitors solar PV forecast confidence and switches
+to a conservative charging schedule when forecasts are unreliable significantly reduce costs or deadline
+misses compared to non-adaptive methods? 
+Secondary questions:  (1) How to quantify forecast reliability in real time (e.g. via prediction intervals or
+historical error)? (2) How to choose the confidence threshold without peeking at test data? (3) What is the
+trade-off between exploiting high solar use under good forecasts versus avoiding risk under bad forecasts? 4. 
+5. 
+6. 
+7. 
+4
+Proposed contribution
+The implementation will be a home energy management algorithm  that explicitly uses a forecast
+confidence measure  to adapt its EV charging schedule. The novel contribution is the decision rule: ΓÇ£if solar
+forecast confidence < threshold, use fallback schedule; else use aggressive forecast-driven schedule.ΓÇ¥ Prior
+methods either ignored PV uncertainty or used robust optimization, but none offered a simple,
+implementable ΓÇ£confidence-gatingΓÇ¥ rule. By doing so, our work fills a gap: it shows whether a lightweight
+reliability check can bridge the performance gap between naive forecast scheduling and full stochastic
+optimization, in a realistic residential setting. All components (forecasting, scheduling, fallback) are simple,
+making the approach easily reproducible in Python, yet the combination  targets a gap identified in related
+work.
+Methodology
+Forecasting model:  Choose a solar PV forecast model (e.g. persistence, linear regression on cloud
+cover , or a simple ML model using open data). Along with forecasts, compute a confidence estimate
+(e.g. a standard deviation or quantile interval, possibly via quantile regression or conformal
+prediction).
+Reliability metric:  Define a reliability score (e.g. inverse of predicted variance or the width of a 95%
+prediction interval). Determine a threshold for ΓÇ£sufficiently reliableΓÇ¥ based on historical cross-
+validation (without peeking at the test set).
+Charging controller:  Implement two scheduling modes:
+a. Forecast-driven mode:  Optimize charging to maximize solar use / minimize cost  subject to meeting
+the deadline. For example, this could be a linear program: charge more when price is low and solar is
+predicted high.
+b. Fallback mode:  A conservative schedule (e.g. evenly distribute charging over cheapest hours
+regardless of solar , or simply charge at the end to guarantee meeting deadline with minimal grid
+usage). 
+The controller monitors forecast reliability each day (or each scheduling interval); if reliability falls below
+threshold, it selects the fallback schedule, otherwise it uses the forecast-driven schedule.
+Implementation:  Build a simulation in Python. At each simulation day: generate (or read) solar
+forecasts and reliability; solve the chosen schedule; accumulate metrics. 
+Baseline comparison:  Compare with (1) no-forecast (fixed or cheapest-only charging), (2) naive
+forecast-driven (ignore reliability), and (3) an ideal ΓÇ£perfect forecastΓÇ¥ benchmark. Evaluate on
+multiple days and scenarios.
+All algorithms will be straightforward (no complex learning beyond simple forecasting), suitable for an
+undergraduate project. 1. 
+2. 
+3. 
+1. 
+2. 
+5
+Experimental plan
+Data:  Use a public solar PV dataset (e.g. NRELΓÇÖs PV generation data or University of California Solar
+dataset) and a household load profile. EV session arrival/departure can be synthesized (e.g. fixed
+departure time, or random deadlines). Electricity prices can be a simple time-of-use tariff.
+Forecast horizon:  For example, day-ahead hourly PV forecasts for the next 24ΓÇ»h. Schedule decisions
+also on an hourly grid.
+Forecast reliability:  Compute, say, the width of the central 90% prediction interval from the
+forecasting model (using a quantile regression or empirical error). Or use the standard deviation
+from an ensemble/persistence error model. The threshold can be chosen by a validation set (e.g. ΓÇ£if
+predicted error > X kWΓÇ¥).
+Confidence threshold selection:  Use cross-validation on historical data: try several thresholds (e.g.
+percentiles of past error) and choose one that balances cost vs. risk on validation days, without using
+test-day outcomes.
+Fallback rule:  For example, if unreliable, schedule EV to charge after  solar peak in low-price hours
+evenly (so risk of missing deadline is minimized). A simple rule: postpone charging to off-peak
+overnight or late evening regardless of solar . 
+EV parameters:  Choose a battery capacity (e.g. 40ΓÇ»kWh), a charging power rate (e.g. 7ΓÇ»kW), an energy
+requirement (e.g. 20ΓÇ»kWh needed before morning), and a fixed departure time.
+Metrics:  Total electricity cost, percent solar utilization (energy drawn vs. solar available), peak
+household load, and deadline violation frequency/cost. Also measure extra cost incurred on days
+with large forecast errors.
+Baseline methods:
+Fixed charging:  e.g. start charging at 80% SOC at 2ΓÇ»AM (common heuristic). 
+Forecast-based (no reliability check):  optimize charging using the point forecast as if accurate. 
+Proposed:  forecast-based with reliability check and fallback. 
+Scenarios:  Create high-error vs. low-error days by perturbing forecasts (e.g. randomly degrade
+prediction accuracy) to test robustness.
+Experiments:  Run simulations over a year of data (with repeated random draws for uncertainty) and
+report averages and confidence intervals. Include ablation: e.g. what if the threshold is set too low or
+too high? 
+Statistical analysis:  Use paired comparisons to show significant differences in cost and reliability
+metrics. ΓÇó 
+ΓÇó 
+ΓÇó 
+ΓÇó 
+ΓÇó 
+ΓÇó 
+ΓÇó 
+ΓÇó 
+ΓÇó 
+ΓÇó 
+ΓÇó 
+ΓÇó 
+ΓÇó 
+ΓÇó 
+6
+Assumptions to justify:  The model of forecast error should be realistic; if real PV forecast
+uncertainty data is unavailable, we can simulate errors based on published RMSE. Synthetic EV
+deadlines should cover worst-case/typical scenarios. 
+No results will be pre-determined; the goal is to show that the confidence-aware rule yields a measurable
+benefit (e.g. lower cost increases during bad forecast days) without degrading performance on good days.
+Feasibility assessment
+Implementation difficulty: Moderate.  Forecasting can use simple models or even persistence.
+Scheduling can be a small linear program (or greedy rule). All code is Python with standard libraries
+(numpy, cvxopt or similar), suitable for a laptop. 
+Data availability:  PV generation data (or irradiance data) are publicly available (e.g. NREL). House
+load profiles and prices are easy to obtain or simulate. EV usage patterns (departure times, required
+energy) can be synthesized from survey data (no unique dataset needed). 
+Computational requirements:  Very light. Simulating one year of 24h days with a few controller
+modes will run in seconds to minutes. 
+Scope:  The project is appropriately sized for an undergrad thesis: implementing a forecast model, a
+scheduler , and running bench experiments. 
+Risks:  A key dependency is realistic forecast reliability. If data on PV forecast error is lacking, we can
+generate synthetic errors, but must caution this in the paper . The implementation is manageable;
+the main uncertainty is whether the novel method truly beats baselines. If it does not, the project
+can still report negative results or tighten the proposal (see Part K). 
+Overall, this project is feasible with open data and simple tools, and can be completed as a small-scale, well-
+controlled simulation study.
+Risks to novelty
+Published evidence of similar methods:  If, during review, we find a paper that already does ΓÇ£switch
+to fallback when PV forecast is uncertainΓÇ¥, we must revise. To guard against this, we will monitor
+closely for any emerging work. 
+Findings that invalidate novelty:  If SimolinΓÇÖs method or others are judged to cover our case (for
+instance, if reviewers argue ΓÇ£this is just SimolinΓÇÖs idea applied to PVΓÇ¥πÇÉ98ΓÇáL139-L146πÇæ), we would
+need to reframe as an application note rather than novel. Alternatively, if the confidence threshold
+rule turns out to be no better than standard robust optimization, we would emphasize the simplicity
+of our approach. 
+Performance risk:  If the controller always chooses one mode (e.g. it rarely triggers fallback because
+thresholds are hard to set), it might reduce to a known baseline. In that case, we could refine byΓÇó 
+ΓÇó 
+ΓÇó 
+ΓÇó 
+ΓÇó 
+ΓÇó 
+ΓÇó 
+ΓÇó 
+ΓÇó 
+7
+making the threshold adaptive or by integrating a mild penalty for missed deadlines into the
+decision. 
+Data/model risk:  Over-simplified forecasts or EV models might make the experiment unrealistic. We
+mitigate this by referencing typical forecast error rates from literature and by sensitivity analysis on
+EV parameters. 
+In summary, the main novelty risk is the existence of unseen prior work. We have searched extensively (see
+citations) and remain cautiously confident no identical approach exists. If new evidence emerges, we will
+highlight the differences (e.g. ΓÇ£previous work did not adjust schedules online based on confidenceΓÇ¥) and
+could propose minor algorithmic tweaks to distinguish our work.
+Faculty-ready summary
+Title:  Reliability-Aware Scheduling of Home EV Charging Using Solar Forecast Confidence 
+Abstract:  Residential electric vehicle (EV) charging can exploit rooftop solar power to reduce grid use and
+cost, but PV forecasts are imperfect. We propose a simple homeΓÇÉcontroller that monitors solar forecast
+confidence and falls back to a conservative charging schedule when forecasts are unreliable. In simulation,
+this controller is compared to (1) fixed-timing charging, (2) forecastΓÇÉdriven charging without error checking,
+and (3) ideal perfect-forecast charging. We use open solar and pricing data, and synthetic EV deadlines, to
+measure outcomes: total cost, peak load, solar energy utilized, and deadline violations. Preliminary
+literature review shows EV charging with solar has been studied (Zhao et al. 2014; Dong et al. 2025), and
+prediction uncertainty has been addressed (Simolin et al. 2020), but no prior work explicitly gates
+scheduling on forecast reliabilityπÇÉ81ΓÇáL52-L60πÇæπÇÉ98ΓÇáL139-L146πÇæπÇÉ59ΓÇáL29-L37πÇæ. This gap suggests the
+project can contribute a novel scheduling strategy. The main risk is that advanced robust optimization may
+already implicitly cover this idea; if our simple rule yields no benefit, we will report that finding and suggest
+improvements. Overall, we aim to quantify whether a lightweight ΓÇ£confidence thresholdΓÇ¥ can improve EV
+charging under uncertain solar generation. 
+Keywords:  EV charging, solar forecasting, demand response, uncertainty, smart home, reliability.ΓÇó 
+8

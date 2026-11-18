@@ -1,0 +1,62 @@
+[
+  {
+    "scenario": "S1",
+    "description": "Unidirectional (Baseline)",
+    "e2h_enabled": false,
+    "e2g_enabled": false,
+    "mean_net_cost": 4.526464374013239,
+    "std_net_cost": 0.5288139388549069,
+    "mean_grid_import_kwh": 40.509483996213945,
+    "mean_grid_export_kwh": 9.741731301811933,
+    "mean_discharged_kwh": 0.0,
+    "mean_e2h_kwh": 0.0,
+    "mean_e2g_kwh": 0.0,
+    "peak_grid_import_kw": 7.763233261381243,
+    "deadline_success_rate": 1.0
+  },
+  {
+    "scenario": "S2",
+    "description": "E2H-Only (Vehicle-to-Home)",
+    "e2h_enabled": true,
+    "e2g_enabled": false,
+    "mean_net_cost": 3.33115942262565,
+    "std_net_cost": 0.4922908717453654,
+    "mean_grid_import_kwh": 42.67235476647615,
+    "mean_grid_export_kwh": 9.741925873671018,
+    "mean_discharged_kwh": 9.21983010898172,
+    "mean_e2h_kwh": 9.219635537122631,
+    "mean_e2g_kwh": 0.0001945718590858744,
+    "peak_grid_import_kw": 7.719923914176385,
+    "deadline_success_rate": 1.0
+  },
+  {
+    "scenario": "S3",
+    "description": "E2G-Only (Vehicle-to-Grid)",
+    "e2h_enabled": false,
+    "e2g_enabled": true,
+    "mean_net_cost": 3.33115942262565,
+    "std_net_cost": 0.4922908717453653,
+    "mean_grid_import_kwh": 42.67235476647615,
+    "mean_grid_export_kwh": 9.741925873671018,
+    "mean_discharged_kwh": 9.21983010898172,
+    "mean_e2h_kwh": 9.219635537122631,
+    "mean_e2g_kwh": 0.0001945718590858744,
+    "peak_grid_import_kw": 7.473397990801213,
+    "deadline_success_rate": 1.0
+  },
+  {
+    "scenario": "S4",
+    "description": "Combined (E2H + E2G)",
+    "e2h_enabled": true,
+    "e2g_enabled": true,
+    "mean_net_cost": 3.33115942262565,
+    "std_net_cost": 0.4922908717453654,
+    "mean_grid_import_kwh": 42.67235476647615,
+    "mean_grid_export_kwh": 9.741925873671018,
+    "mean_discharged_kwh": 9.21983010898172,
+    "mean_e2h_kwh": 9.219635537122631,
+    "mean_e2g_kwh": 0.0001945718590858744,
+    "peak_grid_import_kw": 7.763233261381243,
+    "deadline_success_rate": 1.0
+  }
+]

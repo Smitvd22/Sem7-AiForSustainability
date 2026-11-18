@@ -1,0 +1,7 @@
+controller,n_days,mean_cost,std_cost,median_cost,mean_net_cost,mean_grid_import,mean_peak_grid,mean_pv_to_ev,mean_discharging,mean_e2h,mean_e2g,deadline_success_rate,mean_unmet_energy
+cheapest_hours,56,4.9161,0.3009,4.8436,4.5265,40.5095,7.4193,0.0,0.0,0.0,0.0,1.0,0.0
+conservative_fallback,56,4.9161,0.3009,4.8436,4.5265,40.5095,7.7632,0.0,0.0,0.0,0.0,1.0,0.0
+fixed,56,6.186,0.3009,6.1134,5.7963,40.5095,4.4711,0.0,0.0,0.0,0.0,1.0,0.0
+forecast_driven,56,4.9161,0.3009,4.8436,4.5265,40.5095,7.7632,0.0,0.0,0.0,0.0,1.0,0.0
+oracle,56,4.9161,0.3009,4.8436,4.5265,40.5095,7.7632,0.0,0.0,0.0,0.0,1.0,0.0
+reliability_aware,56,4.9161,0.3009,4.8436,4.5265,40.5095,7.7632,0.0,0.0,0.0,0.0,1.0,0.0

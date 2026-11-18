@@ -1,0 +1,41 @@
+{
+  "source_code": {
+    "data.py": "Implemented",
+    "preprocessing.py": "Implemented",
+    "forecasting.py": "Implemented",
+    "uncertainty.py": "Implemented",
+    "scheduler.py": "Implemented",
+    "simulation.py": "Implemented",
+    "metrics.py": "Implemented",
+    "experiments.py": "Implemented",
+    "statistics.py": "Implemented",
+    "plotting.py": "Implemented",
+    "reporting.py": "Implemented",
+    "cli.py": "Implemented"
+  },
+  "tests": {
+    "test_data.py": "Implemented",
+    "test_forecasting.py": "Implemented",
+    "test_uncertainty.py": "Implemented",
+    "test_scheduler.py": "Implemented",
+    "test_simulation.py": "Implemented",
+    "test_metrics.py": "Implemented",
+    "test_reproducibility.py": "Implemented"
+  },
+  "results": {
+    "raw_results": "Implemented (1 files)",
+    "processed_results": "Implemented (10 files)",
+    "tables": "Implemented (10 files)",
+    "figures": "Implemented (22 files)"
+  },
+  "documentation": {
+    "README.md": "Implemented",
+    "research_design.md": "Implemented",
+    "literature_review.md": "Implemented",
+    "data_sources.md": "Implemented"
+  },
+  "paper": {
+    "main.tex": "Implemented",
+    "references.bib": "Implemented"
+  }
+}

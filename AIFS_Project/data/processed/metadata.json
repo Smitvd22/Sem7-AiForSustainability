@@ -1,0 +1,11 @@
+{
+  "source": "real_world",
+  "description": "NREL PVDAQ Site 4 measured solar generation + UK-DALE measured load + PG&E Schedule EV2-A TOU tariff",
+  "year": 2023,
+  "pv_capacity_kw": 5.0,
+  "latitude": 39.74,
+  "longitude": -105.18,
+  "tariff_type": "time_of_use",
+  "n_hours": 8760,
+  "generated_by": "data.load_real_world_dataset"
+}

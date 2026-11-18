@@ -1,0 +1,32 @@
+{
+  "low_error": {
+    "cheapest_hours": 4.916133626085717,
+    "forecast_driven": 4.916133626085717,
+    "reliability_aware": 4.916133626085717,
+    "conservative_fallback": 4.916133626085717
+  },
+  "moderate_error": {
+    "cheapest_hours": 4.916133626085717,
+    "forecast_driven": 4.917049764581421,
+    "reliability_aware": 4.917049764581421,
+    "conservative_fallback": 4.916133626085717
+  },
+  "high_error": {
+    "cheapest_hours": 4.916133626085717,
+    "forecast_driven": 4.920480426263615,
+    "reliability_aware": 4.920480426263615,
+    "conservative_fallback": 4.916133626085717
+  },
+  "correlated_error": {
+    "cheapest_hours": 4.916133626085717,
+    "forecast_driven": 4.917887926949059,
+    "reliability_aware": 4.917887926949059,
+    "conservative_fallback": 4.916133626085717
+  },
+  "regime_shift": {
+    "cheapest_hours": 4.916133626085717,
+    "forecast_driven": 4.917049764581421,
+    "reliability_aware": 4.917049764581421,
+    "conservative_fallback": 4.916133626085717
+  }
+}

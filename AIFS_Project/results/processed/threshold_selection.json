@@ -1,0 +1,59 @@
+{
+  "selected_tau": 0.8283373430651075,
+  "grid_search": [
+    {
+      "threshold": 0.8283373430651075,
+      "mean_cost": 4.466411629568487,
+      "deadline_success_rate": 1.0,
+      "fallback_rate": 0.1111111111111111
+    },
+    {
+      "threshold": 0.8292071730379803,
+      "mean_cost": 4.466411629568487,
+      "deadline_success_rate": 1.0,
+      "fallback_rate": 0.19444444444444445
+    },
+    {
+      "threshold": 0.8300863133473393,
+      "mean_cost": 4.466411629568487,
+      "deadline_success_rate": 1.0,
+      "fallback_rate": 0.3055555555555556
+    },
+    {
+      "threshold": 0.8311813221137528,
+      "mean_cost": 4.466411629568487,
+      "deadline_success_rate": 1.0,
+      "fallback_rate": 0.3888888888888889
+    },
+    {
+      "threshold": 0.8318688374049719,
+      "mean_cost": 4.466411629568487,
+      "deadline_success_rate": 1.0,
+      "fallback_rate": 0.5
+    },
+    {
+      "threshold": 0.8332589698016178,
+      "mean_cost": 4.466411629568487,
+      "deadline_success_rate": 1.0,
+      "fallback_rate": 0.5833333333333334
+    },
+    {
+      "threshold": 0.8338048774192885,
+      "mean_cost": 4.466411629568487,
+      "deadline_success_rate": 1.0,
+      "fallback_rate": 0.6944444444444444
+    },
+    {
+      "threshold": 0.8345395036567695,
+      "mean_cost": 4.466411629568487,
+      "deadline_success_rate": 1.0,
+      "fallback_rate": 0.7777777777777778
+    },
+    {
+      "threshold": 0.8365099984526814,
+      "mean_cost": 4.466411629568487,
+      "deadline_success_rate": 1.0,
+      "fallback_rate": 0.8888888888888888
+    }
+  ]
+}
